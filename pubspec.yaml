@@ -1,0 +1,23 @@
+name: simplenoteapp
+description: "A simple app to take notes."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.5 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  english_words: ^4.0.0
+  provider: ^6.1.1
+  go_router: ^13.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
