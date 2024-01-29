@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simplenoteapp/src/modules/home/home.controller.dart';
+import 'package:simplenoteapp/src/widgets/appbars.widget.dart';
 import 'package:simplenoteapp/src/widgets/noteview.widgets.dart';
 
 class HomeView extends StatelessWidget {
@@ -12,6 +13,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: homePageAppBar(context),
       body: NoteView(notes: controller.notes),
     );
   }

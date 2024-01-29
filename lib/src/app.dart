@@ -10,7 +10,7 @@ class App extends StatelessWidget {
     return MaterialApp.router(
       title: 'Simple Note App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: const Color.fromARGB(95, 60, 133, 32),
       ),
       routerConfig: router,
     );

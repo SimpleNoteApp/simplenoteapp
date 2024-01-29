@@ -9,7 +9,8 @@ class HomeController {
     NoteModel(
       id: 1,
       title: 'Note 1',
-      content: 'Content 1',
+      content:
+          'Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1',
       createdAt: DateTime.now().toIso8601String(),
       updatedAt: DateTime.now().toIso8601String(),
     ),
@@ -17,6 +18,13 @@ class HomeController {
       id: 2,
       title: 'Note 2',
       content: 'Content 2',
+      createdAt: DateTime.now().toIso8601String(),
+      updatedAt: DateTime.now().toIso8601String(),
+    ),
+    NoteModel(
+      id: 3,
+      title: 'Note 3',
+      content: 'Content 3',
       createdAt: DateTime.now().toIso8601String(),
       updatedAt: DateTime.now().toIso8601String(),
     ),
