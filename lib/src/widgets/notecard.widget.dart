@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:simplenoteapp/src/models/note.model.dart';
 import 'package:simplenoteapp/src/utils/date.util.dart';
 import 'package:simplenoteapp/src/widgets/buttons.widgets.dart';
@@ -10,17 +11,23 @@ class NoteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1 / 0.5, // This will make the card's height twice its width
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Stack(
-            children: [
-              NoteContentView(note: note),
-              NoteCreatedAt(note: note),
-              const EditNote(),
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: AspectRatio(
+        aspectRatio: 1 / 0.5,
+        child: Material(
+          color: Theme.of(context).primaryColor,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Stack(
+              children: [
+                NoteContentView(note: note),
+                NoteCreatedAt(note: note),
+                ButtonMenu(
+                  note: note,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -62,34 +69,47 @@ class NoteContentView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          note.title,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+        Tooltip(
+          message: 'Open note: ${note.title}',
+          child: TextButton(
+            onPressed: () {
+              context.push("/note/${note.id}");
+            },
+            child: Text(note.title, style: const TextStyle(fontSize: 20)),
           ),
         ),
-        Text(
-          note.content.length > 50
-              ? "${note.content.substring(0, 50)}..."
-              : note.content,
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            note.content.length > 50
+                ? "${note.content.substring(0, 50)}..."
+                : note.content,
+          ),
         ),
       ],
     );
   }
 }
 
-class EditNote extends StatelessWidget {
-  const EditNote({
+class ButtonMenu extends StatelessWidget {
+  final NoteModel note;
+  const ButtonMenu({
     super.key,
+    required this.note,
   });
 
   @override
   Widget build(BuildContext context) {
-    return const Positioned(
+    return Positioned(
       bottom: 0,
       right: 0,
-      child: EditNoteButton(),
+      child: Row(
+        children: [
+          EditNoteButton(note: note),
+          const SizedBox(width: 10),
+          DeleteNoteButton(note: note),
+        ],
+      ),
     );
   }
 }

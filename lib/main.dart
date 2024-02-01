@@ -1,28 +1,37 @@
-//package imports
-import 'package:simplenoteapp/src/app.state.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:path/path.dart';
+import 'package:simplenoteapp/src/modules/noteedit/noteeditor.state.dart';
+import 'package:simplenoteapp/src/modules/settings/settings.state.dart';
+import 'package:simplenoteapp/src/repos/note.repo.dart';
+import 'package:simplenoteapp/src/utils/initdatabase.util.dart';
+
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 // local imports
 import 'package:simplenoteapp/src/app.dart';
+import 'package:simplenoteapp/src/app.state.dart';
 
-Future<Database> initDatabase() async {
-  sqfliteFfiInit();
+Widget buildApp(Database database) {
+  return MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (BuildContext context) => SettingsState(),
+        child: const App(),
+      ),
+      ChangeNotifierProvider(
+          create: (BuildContext context) => AppState(database: database)),
+      ChangeNotifierProvider(
+          create: (BuildContext context) => NoteRepository(database: database)),
+      ChangeNotifierProvider(
+          create: (BuildContext context) => NoteEditorState()),
+    ],
+    child: const App(),
+  );
+}
 
-  databaseFactory = databaseFactoryFfi;
-
-  final dbPath = join(await getDatabasesPath(), 'app.db');
-
-  return openDatabase(
-    dbPath,
-    onCreate: (db, version) {
-      return db.execute(
-        'CREATE TABLE IF NOT EXISTS notes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT, createdAt TEXT, updatedAt TEXT)',
-      );
-    },
-    version: 1,
+Widget buildLoading() {
+  return const Center(
+    child: CircularProgressIndicator(),
   );
 }
 
@@ -33,18 +42,15 @@ void main() {
     future: initDatabase(),
     builder: (BuildContext context, AsyncSnapshot<Database> snapshot) {
       if (snapshot.connectionState == ConnectionState.done) {
-        return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-                create: (BuildContext context) =>
-                    AppState(database: snapshot.data!))
-          ],
-          child: const App(),
-        );
+        if (snapshot.hasData) {
+          return buildApp(snapshot.data!);
+        } else {
+          return const MaterialApp(
+              home: Scaffold(
+                  body: Center(child: Text('Error: snapshot.data is null'))));
+        }
       } else {
-        return const Center(
-          child: CircularProgressIndicator(),
-        ); // or some other loading widget
+        return buildLoading();
       }
     },
   ));

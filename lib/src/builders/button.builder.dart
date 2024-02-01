@@ -6,31 +6,33 @@ class ButtonBuilder extends StatelessWidget {
   final String? label;
   final double width;
   final double height;
-  final String? tooltip; // Add this line
+  final String? tooltip;
+  final Color? color;
 
   const ButtonBuilder({
-    Key? key,
+    super.key,
     this.icon,
     required this.onPressed,
     this.label,
     this.width = 50.0,
     this.height = 50.0,
-    this.tooltip, // And this line
-  }) : super(key: key);
+    this.tooltip,
+    this.color,
+  }) : assert(icon != null || label != null,
+            'You must provide an icon or a label.');
 
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: tooltip ?? '', // Use the tooltip here
+      message: tooltip ?? '',
       child: SizedBox(
         width: width,
         height: height,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).primaryColor,
-            padding: EdgeInsets.zero, // Remove padding
+            padding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10), // Make it square
+              borderRadius: BorderRadius.circular(10),
             ),
             elevation: 0,
           ),
@@ -38,12 +40,11 @@ class ButtonBuilder extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (icon != null) Icon(icon, color: Colors.white),
+              if (icon != null) Icon(icon),
               if (label != null)
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child:
-                      Text(label!, style: const TextStyle(color: Colors.white)),
+                  child: Text(label!, style: const TextStyle()),
                 ),
             ],
           ),
