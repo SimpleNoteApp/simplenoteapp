@@ -6,25 +6,32 @@ class SettingsOption extends StatelessWidget {
   final VoidCallback onTap;
 
   const SettingsOption({
-    Key? key,
+    super.key,
     required this.title,
     required this.trailing,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: 60.0, // Set the height to a fixed value
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          children: <Widget>[
-            Text(title),
-            const Spacer(),
-            trailing,
-          ],
+    return FractionallySizedBox(
+      widthFactor: 0.975,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          height: 60.0,
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center, // Add this
+            children: <Widget>[
+              Text(
+                title,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              const Spacer(),
+              trailing
+            ],
+          ),
         ),
       ),
     );

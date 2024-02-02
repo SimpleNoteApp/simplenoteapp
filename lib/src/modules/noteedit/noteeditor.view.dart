@@ -8,7 +8,7 @@ import 'package:simplenoteapp/src/widgets/dialogs.widgets.dart';
 
 class NoteEditorView extends StatefulWidget {
   final NoteEditController controller;
-  const NoteEditorView({Key? key, required this.controller}) : super(key: key);
+  const NoteEditorView({super.key, required this.controller});
 
   @override
   State<NoteEditorView> createState() => _NoteEditorViewState();
@@ -64,10 +64,10 @@ class NoteTitleTextField extends StatelessWidget {
   final NoteEditController controller;
 
   const NoteTitleTextField({
-    Key? key,
+    super.key,
     required this.constraints,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -92,10 +92,10 @@ class NoteContentTextField extends StatelessWidget {
   final NoteEditController controller;
 
   const NoteContentTextField({
-    Key? key,
+    super.key,
     required this.constraints,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

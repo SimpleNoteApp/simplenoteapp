@@ -7,7 +7,7 @@ import 'package:simplenoteapp/src/widgets/appbars.widgets.dart';
 import 'package:simplenoteapp/src/widgets/noteview.widget.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key, required this.controller}) : super(key: key);
+  const HomeView({super.key, required this.controller});
 
   final HomeController controller;
 

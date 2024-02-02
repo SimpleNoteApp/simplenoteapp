@@ -5,19 +5,26 @@ class SettingsSection extends StatelessWidget {
   final List<Widget> children;
 
   const SettingsSection({
-    Key? key,
+    super.key,
     required this.title,
     required this.children,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(title, style: Theme.of(context).textTheme.headlineSmall),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.headlineSmall,
+              textAlign: TextAlign.left,
+            ),
+          ),
           ListView(
             padding: const EdgeInsets.all(6.0),
             shrinkWrap: true,

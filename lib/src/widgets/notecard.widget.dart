@@ -7,14 +7,14 @@ import 'package:simplenoteapp/src/widgets/buttons.widgets.dart';
 class NoteCard extends StatelessWidget {
   final NoteModel note;
 
-  const NoteCard({Key? key, required this.note}) : super(key: key);
+  const NoteCard({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: AspectRatio(
-        aspectRatio: 1 / 0.5,
+        aspectRatio: 1 / 0.6,
         child: Material(
           color: Theme.of(context).primaryColor,
           child: Padding(

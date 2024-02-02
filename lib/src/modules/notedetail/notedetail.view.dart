@@ -8,7 +8,7 @@ import 'package:simplenoteapp/src/widgets/appbars.widgets.dart';
 class NoteDetailView extends StatelessWidget {
   final NoteDetailController controller;
 
-  const NoteDetailView({Key? key, required this.controller}) : super(key: key);
+  const NoteDetailView({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class NoteDetailView extends StatelessWidget {
 class NoteDetailLayout extends StatelessWidget {
   final NoteModel note;
 
-  const NoteDetailLayout({Key? key, required this.note}) : super(key: key);
+  const NoteDetailLayout({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class NoteDetailLayout extends StatelessWidget {
 class NoteDetailBody extends StatelessWidget {
   final NoteModel note;
 
-  const NoteDetailBody({Key? key, required this.note}) : super(key: key);
+  const NoteDetailBody({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {
