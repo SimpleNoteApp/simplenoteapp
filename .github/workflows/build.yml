@@ -3,10 +3,10 @@ name: "Build a Simple Note App"
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   build-linux:
@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Clone Flutter repository with master channel
+      - name: Clone Flutter repository with main channel
         uses: subosito/flutter-action@v2
         with:
           channel: stable
