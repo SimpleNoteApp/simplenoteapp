@@ -1,12 +1,10 @@
 name: "Build a Simple Note App"
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Tests"]
+    types:
+      - completed
 
 jobs:
   build-linux:
@@ -50,7 +48,7 @@ jobs:
 
       - name: Upload Linux Binary
         uses: actions/upload-artifact@v2
-        if: github.event_name != 'pull_request' && github.repository == 'simplenoteapp'
+        # if: github.event_name != 'pull_request' && github.repository == 'simplenoteapp'
         with:
           name: linux-binary
           path: build/linux/x64/release/bundle/
