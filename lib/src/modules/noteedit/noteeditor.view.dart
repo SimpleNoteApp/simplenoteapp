@@ -6,6 +6,8 @@ import 'package:simplenoteapp/src/modules/noteedit/noteeditor.state.dart';
 import 'package:simplenoteapp/src/widgets/appbars.widgets.dart';
 import 'package:simplenoteapp/src/widgets/dialogs.widgets.dart';
 
+/// [NoteEditorView] is a stateful widget that provides the UI for editing a note.
+/// It uses a [NoteEditController] to interact with the note being edited.
 class NoteEditorView extends StatefulWidget {
   final NoteEditController controller;
   const NoteEditorView({super.key, required this.controller});
@@ -19,6 +21,7 @@ class _NoteEditorViewState extends State<NoteEditorView> {
 
   @override
   Widget build(BuildContext context) {
+    // If the note being edited has a title and content, set it in the NoteEditorState.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (controller.note.title.isNotEmpty &&
           controller.note.content.isNotEmpty) {
@@ -40,11 +43,13 @@ class _NoteEditorViewState extends State<NoteEditorView> {
               height: double.infinity,
               child: Column(
                 children: [
+                  // TextField for editing the note's title.
                   NoteTitleTextField(
                     constraints: constraints,
                     controller: controller,
                   ),
                   SizedBox(height: constraints.maxHeight * 0.02),
+                  // TextField for editing the note's content.
                   NoteContentTextField(
                     constraints: constraints,
                     controller: controller,
@@ -59,6 +64,8 @@ class _NoteEditorViewState extends State<NoteEditorView> {
   }
 }
 
+/// [NoteTitleTextField] is a stateless widget that provides a TextField for editing the note's title.
+/// It uses the [NoteEditorState]'s titleController to keep the UI in sync with the note's title.
 class NoteTitleTextField extends StatelessWidget {
   final BoxConstraints constraints;
   final NoteEditController controller;
@@ -87,6 +94,8 @@ class NoteTitleTextField extends StatelessWidget {
   }
 }
 
+/// [NoteContentTextField] is a stateless widget that provides a TextField for editing the note's content.
+/// It uses the [NoteEditorState]'s contentController to keep the UI in sync with the note's content.
 class NoteContentTextField extends StatelessWidget {
   final BoxConstraints constraints;
   final NoteEditController controller;

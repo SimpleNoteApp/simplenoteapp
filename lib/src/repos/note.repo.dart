@@ -1,6 +1,7 @@
-import 'package:flutter/foundation.dart';
-import 'package:simplenoteapp/src/models/note.model.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:flutter/foundation.dart';
+
+import 'package:simplenoteapp/src/models/note.model.dart';
 
 class NoteRepository with ChangeNotifier {
   Database database;

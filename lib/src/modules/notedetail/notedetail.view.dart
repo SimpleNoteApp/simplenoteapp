@@ -5,9 +5,25 @@ import 'package:simplenoteapp/src/modules/notedetail/notedetail.controller.dart'
 import 'package:simplenoteapp/src/utils/date.util.dart';
 import 'package:simplenoteapp/src/widgets/appbars.widgets.dart';
 
+/// [NoteDetailView] serves as the detailed view of a note.
+///
+/// The page displays the title and content of the note.
+///
+/// [NoteDetailController] is leveraged to fetch the note from the [NoteRepository].
+///
+/// The app bar is rendered using the [noteDetailAppBar] widget.
+///
+/// The note is represented using an instance of [NoteModel].
+///
+/// The [FutureBuilder] widget is employed to handle the asynchronous loading of the note.
+///
 class NoteDetailView extends StatelessWidget {
   final NoteDetailController controller;
 
+  /// Constructs a new [NoteDetailView] widget.
+  ///
+  /// [controller] is the [NoteDetailController] that will be used to fetch the note.
+  ///
   const NoteDetailView({super.key, required this.controller});
 
   @override
