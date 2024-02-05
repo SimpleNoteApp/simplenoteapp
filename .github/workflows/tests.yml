@@ -18,14 +18,14 @@ jobs:
     steps:
       # Set up Flutter.
       - name: Clone Flutter repository with master channel
-        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+        uses: subosito/flutter-action
         with:
           channel: master
       - run: flutter doctor -v
 
       # Checkout gallery code and get packages.
       - name: Checkout gallery code
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        uses: actions/checkout
       - run: flutter pub get
 
       # Analyze, check formatting, and run unit tests.
