@@ -18,14 +18,22 @@ jobs:
     steps:
       # Set up Flutter.
       - name: Clone Flutter repository with master channel
-        uses: subosito/flutter-action
+        uses: subosito/flutter-action@v2
         with:
-          channel: master
+          channel: stable
       - run: flutter doctor -v
+
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
 
       # Checkout gallery code and get packages.
       - name: Checkout gallery code
-        uses: actions/checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - run: flutter pub get
 
       # Analyze, check formatting, and run unit tests.
