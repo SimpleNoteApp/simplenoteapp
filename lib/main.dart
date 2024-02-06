@@ -5,7 +5,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 // local imports
 import 'package:simplenoteapp/src/modules/noteedit/noteeditor.state.dart';
 import 'package:simplenoteapp/src/modules/settings/settings.state.dart';
-import 'package:simplenoteapp/src/utils/initdatabase.util.dart';
+import 'package:simplenoteapp/src/utils/database/initdatabase.util.dart';
 import 'package:simplenoteapp/src/repos/note.repo.dart';
 import 'package:simplenoteapp/src/app.dart';
 

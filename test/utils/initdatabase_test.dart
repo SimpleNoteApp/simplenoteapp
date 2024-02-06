@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart';
-import 'package:simplenoteapp/src/utils/initdatabase.util.dart';
+import 'package:simplenoteapp/src/utils/database/initdatabase.util.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {

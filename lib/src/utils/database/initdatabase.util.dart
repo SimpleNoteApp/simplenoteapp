@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
 
@@ -23,6 +24,7 @@ Future<Database> openDb(String path) async {
 // It then opens the database at the path 'app.db' in the databases directory.
 // If an error occurs while opening the database, it rethrows the error.
 Future<Database> initDatabase() async {
+  
   if (Platform.isLinux || Platform.isWindows) {
     sqfliteFfiInit();
     databaseFactory = databaseFactoryFfi;

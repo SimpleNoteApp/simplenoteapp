@@ -31,9 +31,13 @@ jobs:
         id: build-windows-binaries
         run: flutter build windows --release
 
+      - name: Copy sqlite3 package for windows
+        id: copy-sqlite3
+        run: cp -r windows/sqlite3.dll build/windows/x64/runner/Release/
+
       - name: Pack the binaries
         id: pack-binaries
-        run: 7z a -tzip simplenoteapp-windows.zip build\windows\x64\runner\Release
+        run: 7z a -tzip simplenoteapp-windows.zip build\windows\x64\runner\Release\*
 
       - name: Upload a Windows artifacts
         uses: svenstaro/upload-release-action@v2
