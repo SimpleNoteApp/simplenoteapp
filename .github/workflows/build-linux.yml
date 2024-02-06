@@ -2,7 +2,7 @@ name: "Build a Simple Note App binaries for Linux"
 
 on:
   workflow_run:
-    workflows: ["Tests"]
+    workflows: ["Simple Note App tests"]
     types:
       - completed
 
