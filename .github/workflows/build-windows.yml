@@ -20,13 +20,10 @@ jobs:
         id: flutter-check
         run: flutter doctor
 
-      - name: "test"
-        run: dir
-
       - name: Get dependencies
         id: get-flutter-dependencies
         run: flutter pub get
-        working-directory: ${{ github.workspace }}
+        working-directory: ../..
 
       - name: Cache Flutter dependencies
         id: cache-flutter-dependencies
@@ -40,6 +37,7 @@ jobs:
       - name: Build Windows binaries
         id: build-windows-binaries
         run: flutter build windows
+        working-directory: ../..
 
       - name: Upload Windows binaries
         id: upload-windows-binaries
