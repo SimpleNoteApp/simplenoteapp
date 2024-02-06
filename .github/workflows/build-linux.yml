@@ -82,5 +82,5 @@ jobs:
         with:
           tag: "v0.1.1-beta"
           overwrite: true
-          file: ${{ steps.create-release.outputs.upload_url }}
+          file: ${{ steps.upload-linux-binary.outputs.artifact_url }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
