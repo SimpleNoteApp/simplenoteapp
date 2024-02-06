@@ -1,0 +1,88 @@
+name: "Build a Simple Note App binaries for Linux"
+
+on:
+  workflow_run:
+    workflows: ["Tests"]
+    types:
+      - completed
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Clone Flutter repository with main channel
+        id: setup-flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: "Cache Flutter dependencies"
+        id: cache-flutter-dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+
+      - name: Install Linux dependencies
+        id: install-apt-dependencies
+        run: sudo apt-get update && sudo apt-get install -y clang cmake ninja-build libgtk-3-dev
+
+      - name: Cache Linux dependencies
+        id: cache-apt-dependencies
+        uses: actions/cache@v2
+        with:
+          path: /var/cache/apt
+          key: ${{ runner.os }}-apt-${{ hashFiles('**/apt.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-apt-
+
+      - name: Checks the flutter environment
+        id: flutter-environment-check
+        run: flutter doctor
+
+      - name: Install dependencies
+        id: flutter-dependencies
+        run: flutter pub get
+
+      - name: Build Linux
+        id: linux-build
+        run: flutter build linux --release
+
+      - name: Upload Linux Binary
+        id: upload-linux-binary
+        uses: actions/upload-artifact@v2
+        # if: github.event_name != 'pull_request' && github.repository == 'simplenoteapp'
+        with:
+          name: simplenoteapp-linux
+          path: build/linux/x64/release/bundle/
+
+      - name: "Generate changelog"
+        id: generate-changelog
+        run: |
+          echo "::set-output name=changelog::$(git log --pretty=format:"- %s" ${{ github.event.workflow_run.before }}..${{ github.sha }} | grep -v -i -E 'workflow|readme')"
+
+      - name: "Create release"
+        id: create-release
+        uses: actions/create-release@v1
+        with:
+          tag_name: "v0.1.1-beta"
+          release_name: Simple Note App first beta release
+          body: |
+            - This is the first beta release of the Simple Note App. 
+            - At now you can create, read, update and delete notes.!
+            - The app is still in development, so there are some bugs and missing features. 
+            - Please, report any issue you find. Thanks for testing the app!
+          draft: false
+          prerelease: true
+
+      - name: "Upload attachments"
+        id: upload-attachment
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: |
+            build/linux/x64/release/bundle/
+          repo_token: ${{ secrets.GITHUB_TOKEN }}

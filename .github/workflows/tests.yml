@@ -1,4 +1,4 @@
-name: Tests
+name: "Simple Note App tests"
 on:
   push:
     branches:
