@@ -2,7 +2,7 @@ name: "Build a Simple Note App binaries for Linux"
 
 on:
   workflow_run:
-    workflows: ["Simple Note App tests"]
+    workflows: ["Create a release"]
     types:
       - completed
 
@@ -35,9 +35,15 @@ jobs:
         id: linux-build-binaries
         run: flutter build linux --release
 
-      - name: Upload Linux Binary
-        id: upload-linux-binary
-        uses: actions/upload-artifact@v2
+      - name: Pack binaries
+        id: pack-binaries
+        run: tar -czf simplenoteapp-linux.tar.gz build/linux/release
+
+      - name: Upload a Windows artifacts
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: simplenoteapp-linux
-          path: build/linux/x64/release/bundle/
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: simplenoteapp-linux.tar.gz
+          tag: v0.1.1-beta
+          release_name: v0.1.1-beta
+          overwrite: true

@@ -2,7 +2,7 @@ name: "Build a Simple Note App binaries for Windows"
 
 on:
   workflow_run:
-    workflows: ["Simple Note App tests"]
+    workflows: ["Create a release"]
     types:
       - completed
 
@@ -30,9 +30,15 @@ jobs:
         id: build-windows-binaries
         run: flutter build windows --release
 
-      - name: Upload Windows binaries
-        id: upload-windows-binaries
-        uses: actions/upload-artifact@v2
+      - name: Pack the binaries
+        id: pack-binaries
+        run: 7z a -tzip simplenoteapp-windows.zip build\windows\runner\Release
+
+      - name: Upload a Windows artifacts
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: simplenoteapp-windows
-          path: build\windows\x64\runner\Release
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: simplenoteapp-windows.zip
+          tag: v0.1.1-beta
+          release_name: v0.1.1-beta
+          overwrite: true
