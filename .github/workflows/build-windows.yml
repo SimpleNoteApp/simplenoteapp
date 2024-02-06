@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: simplenoteapp-windows
-          path: build/windows/runner/Release/
+          path: build\windows\x64\runner\Release
