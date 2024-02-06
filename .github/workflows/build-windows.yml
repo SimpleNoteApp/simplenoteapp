@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-windows:
-    runs-on: windows-10
+    runs-on: windows-2020
     steps:
       - name: Clone Flutter repository with main channel
         id: setup-flutter
