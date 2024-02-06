@@ -25,18 +25,9 @@ jobs:
         run: flutter pub get
         working-directory: ../..
 
-      - name: Cache Flutter dependencies
-        id: cache-flutter-dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pub-
-
       - name: Build Windows binaries
         id: build-windows-binaries
-        run: flutter build windows
+        run: flutter build windows --release
         working-directory: ../..
 
       - name: Upload Windows binaries

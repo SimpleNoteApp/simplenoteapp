@@ -23,15 +23,6 @@ jobs:
         id: install-apt-dependencies
         run: sudo apt-get update && sudo apt-get install -y clang cmake ninja-build libgtk-3-dev
 
-      - name: Cache Linux dependencies
-        id: cache-apt-dependencies
-        uses: actions/cache@v2
-        with:
-          path: /var/cache/apt
-          key: ${{ runner.os }}-apt-${{ hashFiles('**/apt.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-apt-
-
       - name: Checks the Flutter environment
         id: flutter-check
         run: flutter doctor
@@ -39,15 +30,6 @@ jobs:
       - name: Install dependencies
         id: get-flutter-dependencies
         run: flutter pub get
-
-      - name: Cache Flutter dependencies
-        id: cache-flutter-dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pub-
 
       - name: Build Linux binaries
         id: linux-build-binaries
