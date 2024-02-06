@@ -15,14 +15,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: simplenoteapp-linux
-          path: simplenoteapp-linux
 
       - name: "Donwnload a Windows artifacts"
         id: download-windows-artifact
         uses: actions/download-artifact@v4
         with:
           name: simplenoteapp-windows
-          path: simplenoteapp-windows
 
       - name: Create a release
         uses: actions/create-release@v1
