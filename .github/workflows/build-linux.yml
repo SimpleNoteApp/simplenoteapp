@@ -56,15 +56,9 @@ jobs:
       - name: Upload Linux Binary
         id: upload-linux-binary
         uses: actions/upload-artifact@v2
-        # if: github.event_name != 'pull_request' && github.repository == 'simplenoteapp'
         with:
           name: simplenoteapp-linux
           path: build/linux/x64/release/bundle/
-
-      - name: "Generate changelog"
-        id: generate-changelog
-        run: |
-          echo "::set-output name=changelog::$(git log --pretty=format:"- %s" ${{ github.event.workflow_run.before }}..${{ github.sha }} | grep -v -i -E 'workflow|readme')"
 
       - name: "Create release"
         id: create-release
@@ -75,10 +69,10 @@ jobs:
           tag_name: "v0.1.1-beta"
           release_name: Simple Note App first beta release
           body: |
-            - This is the first beta release of the Simple Note App. 
-            - At now you can create, read, update and delete notes.!
-            - The app is still in development, so there are some bugs and missing features. 
-            - Please, report any issue you find. Thanks for testing the app!
+            This is the first beta release of the Simple Note App. 
+            At now you can create, read, update and delete notes.!
+            The app is still in development, so there are some bugs and missing features. 
+            Please, report any issue you find. Thanks for testing the app!
           draft: false
           prerelease: true
 
@@ -86,6 +80,7 @@ jobs:
         id: upload-attachment
         uses: svenstaro/upload-release-action@v2
         with:
-          file: |
-            build/linux/x64/release/bundle/
+          tag: "v0.1.1-beta"
+          overwrite: true
+          file: build/linux/x64/release/bundle/
           repo_token: ${{ secrets.GITHUB_TOKEN }}
