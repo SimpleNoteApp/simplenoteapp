@@ -20,6 +20,9 @@ jobs:
         id: flutter-check
         run: flutter doctor
 
+      - name: "test"
+        run: ls -la
+
       - name: Get dependencies
         id: get-flutter-dependencies
         run: flutter pub get
