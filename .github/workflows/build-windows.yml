@@ -23,6 +23,7 @@ jobs:
       - name: Get dependencies
         id: get-flutter-dependencies
         run: flutter pub get
+        working-directory: ${{ github.workspace }}
 
       - name: Cache Flutter dependencies
         id: cache-flutter-dependencies
