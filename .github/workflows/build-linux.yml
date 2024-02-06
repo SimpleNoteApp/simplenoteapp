@@ -76,6 +76,9 @@ jobs:
           draft: false
           prerelease: true
 
+      - name: Compress artifacts
+        run: zip -r simplenoteapp-linux.zip simplenoteapp-linux/
+
       - name: "Upload attachments"
         id: upload-attachment
         uses: svenstaro/upload-release-action@v2
