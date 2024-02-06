@@ -1,0 +1,64 @@
+name: "Create a release"
+
+on:
+  workflow_run:
+    workflows:
+      [
+        "Build a Simple Note App binaries for Windows",
+        "Build a Simple Note App binaries for Linux",
+      ]
+    types:
+      - completed
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Donwnload a Linux artifacts"
+        id: download-linux-artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: simplenoteapp-linux
+          path: simplenoteapp-linux
+
+      - name: "Donwnload a Windows artifacts"
+        id: download-windows-artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: simplenoteapp-windows
+          path: simplenoteapp-windows
+
+      - name: Create a release
+        uses: comnoco/create-release-action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v0.1.1-beta
+          release_name: v0.1.1-beta
+          body: |
+            This is a first release of my new app. It's still in beta, but it's already working.
+            At now you can create, read, update and delete notes.
+            Also you can change the app theme and reset all notes.
+            I'll be happy to hear your feedback.
+          draft: false
+          prerelease: true
+
+      - name: Upload a Linux artifacts
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: simplenoteapp-linux/simplenoteapp
+          asset_name: simplenoteapp
+          tag: v0.1.1-beta
+          release_name: v0.1.1-beta
+          overwrite: true
+
+      - name: Upload a Windows artifacts
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: simplenoteapp-windows/simplenoteapp.exe
+          asset_name: simplenoteapp.exe
+          tag: v0.1.1-beta
+          release_name: v0.1.1-beta
+          overwrite: true

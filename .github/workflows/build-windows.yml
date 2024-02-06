@@ -1,0 +1,45 @@
+name: "Build a Simple Note App binaries for Windows"
+
+on:
+  workflow_run:
+    workflows: ["Simple Note App tests"]
+    types:
+      - completed
+
+jobs:
+  build-windows:
+    runs-on: windows-10
+    steps:
+      - name: Clone Flutter repository with main channel
+        id: setup-flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Check the Flutter environment
+        id: flutter-check
+        run: flutter doctor
+
+      - name: Get dependencies
+        id: get-flutter-dependencies
+        run: flutter pub get
+
+      - name: Cache Flutter dependencies
+        id: cache-flutter-dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+
+      - name: Build Windows binaries
+        id: build-windows-binaries
+        run: flutter build windows
+
+      - name: Upload Windows binaries
+        id: upload-windows-binaries
+        uses: actions/upload-artifact@v2
+        with:
+          name: simplenoteapp-windows
+          path: build/windows/runner/Release
