@@ -37,7 +37,7 @@ jobs:
 
       - name: Pack binaries
         id: pack-binaries
-        run: tar -czf simplenoteapp-linux.tar.gz build/linux/release
+        run: tar -czf simplenoteapp-linux.tar.gz build/linux/x64/release
 
       - name: Upload a Windows artifacts
         uses: svenstaro/upload-release-action@v2
