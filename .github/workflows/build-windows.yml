@@ -25,12 +25,10 @@ jobs:
       - name: Get dependencies
         id: get-flutter-dependencies
         run: flutter pub get
-        working-directory: ../..
 
       - name: Build Windows binaries
         id: build-windows-binaries
         run: flutter build windows --release
-        working-directory: ../..
 
       - name: Upload Windows binaries
         id: upload-windows-binaries
