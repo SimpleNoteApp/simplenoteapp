@@ -2,7 +2,7 @@ name: "Create a release"
 
 on:
   workflow_run:
-    workflows: ["build-linux", "build-windows"]
+    workflows: ["Build a Simple Note App binaries for Windows"]
     types:
       - completed
 
