@@ -76,11 +76,14 @@ jobs:
           draft: false
           prerelease: true
 
+      - name: Compress artifacts
+        run: tar -czvf linux-app.tar.gz -C build/linux/x64/release/bundle .
+
       - name: "Upload attachments"
         id: upload-attachment
         uses: svenstaro/upload-release-action@v2
         with:
           tag: "v0.1.1-beta"
           overwrite: true
-          file: ${{ steps.upload-linux-binary.outputs.artifact_url }}
+          file: linux-app.tar.gz
           repo_token: ${{ secrets.GITHUB_TOKEN }}
